@@ -1,0 +1,120 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid fondo color ">
+    <br><hr><h1>¡Reserva tu hora aquí!</h1><hr>
+    <p class="pt">Rellena el formulario que se encuentra más abajo para poder reservar. </p><br>
+  </div>
+<br>
+
+<!--Caja de imagen mas texto ordenado-->
+<div class="row jumbotron" id="Cajaindex">
+    <div class="col-lg-6">
+      <div class="div2">
+        <br><br><br>
+        <hr>
+        <h1>Reserva tu hora con nosotros, Aquí </h1>
+        <hr><br><br><br>
+        <p class="pindex">
+
+
+
+
+            <div >
+                <div >
+                    <div >
+                        <form action="/Reserva/" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" id="nombrehijo" name="nombrehijo" class="form-control"
+                                placeholder="Nombre hijo/a" minlength="10" maxlength="25" required>
+                            </div><br>
+                            <div class="form-group">
+                                <input type="text" id="ruthijo" name="ruthijo" class="form-control"
+                                placeholder="Rut hijo/a" minlength="12" maxlength="12" required>
+                            </div><br>
+                            <div class="form-group">
+                                <input type="date" id="fecha" name="fecha" class="form-control"
+                                placeholder="Qué día reserva" required>
+                            </div><br>
+                            <div class="form-group">
+                                <input type="text" id="horas_reserva" name="horas_reserva" class="form-control"
+                                placeholder="Horas que reservará" minlength="1" maxlength="4" value="1" required>
+                            </div><br>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-warning">Reservar Hora</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          
+          <br><br>
+          
+          <br><br>
+        </div>
+      </div>
+      
+  <div class="col-lg-6">
+    <br><br><br>
+
+
+    <div class="container-fluid">
+        <div class="container bg-light">
+            <table class="table-responsive py-2">
+                <table class="table table-striped">
+                    <div class="h1 text-center bg-dark">Listado de horas que ya fueron reservadas</div>
+                    <thead>
+                        <tr>
+                            <th>Fecha de Reserva</th>
+                            <th>Horas Reservadas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ve in horas %}
+                        <tr>
+                            <td>{{ve.fecha}}</td>
+                            <td>{{ve.horas_reserva}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </table>
+            <br>
+        </div>
+    </div>
+  </div>
+  </div>
+
+
+<br>
+
+<div>
+
+
+
+
+
+<br>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if messages %}
+  {% for m in messages%}
+    <script>
+      Swal.fire({
+        "title": "Felicitaciones",
+        "text": "{{m}}",
+        "icon": "success"
+      })
+    </script>
+  {% endfor %}
+{% endif %}
+
+
+
+
+
+{% endblock %}

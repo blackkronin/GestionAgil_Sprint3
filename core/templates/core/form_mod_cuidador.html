@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="icon" href="{% static 'img/logoduocnav.png' %}" />
+  <title>Administar Cuidadores</title>
+
+  {% load static %}
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <!--Menu de navegacion-->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- logo -->
+    {% load static %}
+    <a class="navbar-brand" href="#" style="color: blanchedalmond;">
+      <img src="{% static 'img/logoduocnav.png' %}" width="50" height="50" alt="logoBookStop"> ChildrenGuard
+    </a>
+
+    <!-- enlaces -->
+    <div class="collapse navbar-collapse" id="opciones">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" style="color: rgb(255, 255, 255);" href="{% url 'home' %}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color: rgb(255, 255, 255);" href="{% url 'SobreNosotros' %}">Sobre Nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color: rgb(255, 255, 255);" href="{% url 'pagReservar' %}">Reservar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color: rgb(255, 255, 255);" href="{% url 'cuidadoras' %}">Cuidadores</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <!--Registrar barra de navegacion-->
+    {% if user.is_authenticated %}
+
+    <div>
+      <a href="{%  url 'home' %}" id="userDePelos" style="color: rgb(243, 248, 243)">
+        <img src="{% static 'img/useeer.png' %}" alt="userDePelos" width="20px">Bienvenido @{{user.username}}.
+      </a>
+    </div>
+
+
+    <div>
+      <a href="{%  url 'logout' %}" id="userDePelos" style="color: red">
+        <img src="{% static 'img/xez.png' %}" alt="userDePelos" width="20px">Cerrar Sessión.
+      </a>
+    </div>
+
+    {% else %}
+    <div>
+      <a href="{% url 'registrarse' %}" id="userDePelos" style="color: aliceblue;">
+        <img src="{% static 'img/useeer.png' %}" alt="userDePelos" width="20px">Registrarse
+      </a>
+    </div>
+
+    <div>
+      <a href="{%  url 'login' %}" id="userDePelos" style="color: aliceblue;">
+        <img src="{% static 'img/usermujer.png' %}" alt="userDePelos" width="20px">Iniciar Sesión
+      </a>
+    </div>
+    {% endif %}
+
+  </nav><br><br>
+
+
+  <div class="row jumbotron" id="Cajaindex">
+    <div class="col-lg-6">
+      <div class="div2">
+        <br>
+        <p class="pindex">
+          {% if user.is_authenticated %}
+          {% if perms.app.add_producto %}
+          <hr>
+        <h1>Para Ingresar nuevos Cuidadores complete el siguiente formulario.</h1>
+        <hr>
+        {% else %}
+        <hr>
+        <h1>UPS......</h1>
+        <hr><br>
+        {% endif %}
+        {% endif %}
+
+        <!--Formulario ez-->
+
+        <br>
+        {% if user.is_authenticated %}
+        {% if perms.app.add_cuidador %}
+        <div class="container">
+
+          <div>
+            <form method="POST" action="#" class="needs-validation" id="formulario" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form2.rut.label }}
+                {{ form2.rut }}
+
+              </div>
+
+              <div class="form-group">
+                {{ form2.nombre.label }}
+                {{ form2.nombre }}
+
+
+              </div>
+
+              <div class="form-group">
+                {{ form2.edad.label }}
+                {{ form2.edad }}
+
+
+              </div>
+
+              <div class="form-group" type="email">
+                {{ form2.email.label }}
+                {{ form2.email }}
+
+
+              </div>
+
+              <div class="form-group">
+                {{ form2.numero.label }}
+                {{ form2.numero }}
+
+
+              </div>
+
+              <div class="form-group">
+                {{ form2.dire.label }}
+                {{ form2.dire }}
+
+
+              </div>
+
+              <div class="form-group">
+                {{ form2.experiencia.label }}
+                {{ form2.experiencia }}
+
+
+              </div>
+
+              <div class="form-group">
+                {{ form2.imagen.label }}
+                {{ form2.imagen }}
+
+
+              </div>
+
+
+
+              <br><br>
+              <input type="submit" class="btn btn-primary" value="Enviar">
+              <input type="reset" class="btn btn-danger" value="Limpiar">
+
+
+
+            </form>
+            <br>
+
+
+
+          </div>
+        </div>
+        {% else %}
+        <H1>Usted no tiene acceso a Crear Productos.</H1>
+        <br><br>
+        <hr>
+        <a href="{% url 'login' %}">
+          <H1>Iniciar Sessión</H1>
+        </a>
+        <hr><br>
+        {% endif %}
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <img src="{% static 'img/madrepro.jpg' %}" class="imgduoc">
+    </div>
+  </div>
+  <br><br>
+
+  <!--FOOTER-->
+  <footer class="bg-dark">
+    <div class="row col-12">
+      <div class="col-lg-2">
+        <img src="{% static 'img/logoduoc.png' %}" alt="logoDePelos" width="150px">
+      </div>
+      <div class="col-lg-1">
+        <a href="{% url 'home' %}" id="linkFooter"><strong>INICIO</strong></a>
+      </div>
+      <div class="col-lg-1">
+        <a href="{% url 'soporte' %}" id="linkFooter"><strong>SOPORTE</strong></a> <br>
+      </div>
+
+      <div class="col-lg-2">
+        <a href="{% url 'SobreNosotros' %}" id="linkFooter"><strong>SOBRE NOSOTROS</strong></a>
+        <br>
+        <br>
+      </div>
+
+      <div class="col-lg-3">
+
+        <strong>¡Síguenos En Redes!</strong>
+        <br><br>
+        <div class="row">
+          <img src="{% static 'img/logofacebookez.png' %}" alt="" width="20px" height="20px"
+            style="margin-right: 10px; margin-left: 15px;">
+          <a href="https://www.facebook.com/DuocUC" id="linkFooter">
+            <p>ChildrenGuardDuocUC</p>
+          </a>
+
+        </div>
+        <div class="row">
+          <img src="{% static 'img/instalogoez.png' %}" alt="" width="20px" height="20px"
+            style="margin-right: 10px; margin-left: 15px;">
+          <a href="https://www.instagram.com/duoc_maipu/?theme=dark" id="linkFooter">
+            <p>ChildrenGuardDuocUC</p>
+          </a>
+        </div>
+        <div class="row">
+          <img src="{% static 'img/twitterlogoez.png' %}" alt="" width="20px" height="20px"
+            style="margin-right: 10px; margin-left: 15px;">
+          <a href="https://twitter.com/DuocUC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" id="linkFooter">
+            <p>ChildrenGuardDuocUC</p>
+          </a>
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-2">
+
+        <a href="{% url 'soporte' %}" id="linkFooter"><strong>Contacto</strong></a>
+        <br><br>
+        <div class="row">
+          <img src="{% static 'img/ubicacion.png' %}" alt="" width="20px" height="20px"
+            style="margin-right: 10px; margin-left: 15px;">
+          <p>DuocUC Sede maipu</p>
+        </div>
+        <div class="row">
+          <img src="{% static 'img/phonez.png' %}" alt="" width="20px" height="20px"
+            style="margin-right: 10px; margin-left: 15px;">
+          <p>+569 5697 5821</p>
+        </div>
+        <div class="row">
+          <img src="{% static 'img/gmail.png' %}" alt="" width="20px" height="20px"
+            style="margin-right: 10px; margin-left: 15px;">
+          <p>ChildrenGuard@duocuc.cl</p>
+        </div>
+        <br><br>
+        <p>Gestion Agil De Proyectos</p>
+        <p>&copy; Guarderia DuocUC - 2023</p>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    .color {
+      color: #FFFFFF;
+    }
+
+    .fondo {
+      background-color: #fd6c65;
+    }
+
+    .pindex {
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .pt {
+      text-align: center;
+      font-size: 150%;
+    }
+
+    footer {
+      padding: 20px;
+      color: #FFFFFF;
+      background-color: #dd4b2e;
+      height: 280px;
+      margin-top: 20px;
+    }
+
+    footer {
+      height: 552px;
+
+    }
+
+    .div {
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+
+    .div2 {
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+
+    .divcajasez {
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+
+    .imgacc {
+      width: 100%;
+      height: 103%;
+    }
+
+    #Cajaindex {
+      margin-right: 0px;
+      margin-left: 0px;
+      margin-bottom: 0;
+      background-color: #fd6c65;
+      padding-top: 20px;
+      padding-bottom: 40px;
+      color: #FFFFFF;
+    }
+
+    .imgduoc {
+      width: 100%;
+      height: 100%;
+    }
+
+    footer div p {
+      font-size: 12px;
+      color: #FFFFFF;
+      padding-top: 5px;
+      line-height: 10px;
+    }
+
+    #linkFooter {
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+
+    #imgcorrea {
+      width: 60%;
+      height: 60%;
+    }
+
+    .divcajas {
+      padding-left: 15%;
+      padding-right: 15%;
+    }
+
+    #userDePelos img {
+      margin-right: 5px;
+      margin-bottom: 3px;
+    }
+  </style>

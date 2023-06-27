@@ -1,0 +1,47 @@
+body {
+  color: rgb(255, 255, 255);
+}
+
+#titulo {
+  text-align: center;
+  color: rgb(201, 247, 0);
+}
+.fecha {
+  width: 70%;
+  margin: auto;
+  background: #FF6A63;
+  padding: 10px;
+  border-radius: 10px;
+}
+.fecha__completa {
+  text-align: center;
+}
+.hora {
+  display: flex;
+  flex-direction: column;
+  font-size: 50px;
+  align-items: center;
+  font-weight: bold;
+  color: rgb(202, 245, 222);
+}
+
+.fecha2{
+  width: 70%;
+  margin: auto;
+  background: #eb5951;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.hora2 {
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  align-items: center;
+  font-weight: bold;
+  color: rgb(202, 245, 222);
+}
+
+.api{
+  color: aliceblue;
+}
